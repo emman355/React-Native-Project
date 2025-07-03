@@ -8,6 +8,7 @@ type AuthContextType = {
     isLoadingUser: boolean,
     signUp: (email: string, password: string) => Promise<string | null>;
     signIn: (email: string, password: string) => Promise<string | null>;
+    signOut: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -50,6 +51,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const signIn = async (email: string, password: string) => {
         try {
             await account.createEmailPasswordSession(email, password)
+            const session = await account.get()
+            setUser(session)
             return null
         } catch (error) {
             if (error instanceof Error) {
@@ -60,8 +63,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     }
 
+    const signOut = async () => {
+        try {
+            await account.deleteSession('current')
+            setUser(null)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user, isLoadingUser, signUp, signIn }}>
+        <AuthContext.Provider value={{ user, isLoadingUser, signUp, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     )
