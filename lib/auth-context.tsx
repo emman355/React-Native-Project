@@ -1,5 +1,5 @@
+import { ID, Models } from "appwrite";
 import { createContext, useContext, useEffect, useState } from "react";
-import { ID, Models } from "react-native-appwrite";
 import { account } from "./appwrite";
 
 
@@ -27,6 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         try {
             const session = await account.get()
             setUser(session)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             setUser(null)
         } finally {
