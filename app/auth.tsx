@@ -58,6 +58,7 @@ export default function AuthScreen() {
 				</Text>
 				<TextInput
 					label="Email"
+					value={email}
 					autoCapitalize='none'
 					keyboardType='email-address'
 					placeholder='example@gmail.com'
@@ -68,6 +69,7 @@ export default function AuthScreen() {
 
 				<TextInput
 					label="Password"
+					value={password}
 					autoCapitalize='none'
 					mode="outlined"
 					secureTextEntry
@@ -75,7 +77,7 @@ export default function AuthScreen() {
 					onChangeText={setPassword}
 				/>
 
-				{error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
+				{error ? <Text style={{ color: theme.colors.error }}>{String(error)}</Text> : null}
 
 				<Button mode="contained" onPress={handleAuth} style={styles.button}>{isSignUp ? "Sign Up" : "Sign In"}</Button>
 				<Button mode="text" onPress={handleSwitchMode} style={styles.switchModeButton}>{isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign up"}</Button>

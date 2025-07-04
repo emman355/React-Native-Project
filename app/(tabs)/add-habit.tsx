@@ -52,8 +52,8 @@ export default function AddHabitScreen() {
 	return (
 		<View style={styles.container}>
 			<View style={styles.input}>
-				<TextInput label="Title" onChangeText={setTitle} mode="outlined" />
-				<TextInput label="Description" onChangeText={setDescription} mode="outlined" />
+				<TextInput label="Title" onChangeText={setTitle} mode="outlined" value={title} />
+				<TextInput label="Description" onChangeText={setDescription} mode="outlined" value={description} />
 			</View>
 			<View style={styles.buttons}>
 				<SegmentedButtons
@@ -72,8 +72,7 @@ export default function AddHabitScreen() {
 					Add Habbit
 				</Button>
 			</View>
-			{error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
-
+			{error ? <Text style={{ color: theme.colors.error }}>{String(error)}</Text> : null}
 		</View>
 	)
 }
